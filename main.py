@@ -19,11 +19,20 @@ def get_total_number_comics():
     return response.json()["num"]
 
 
-def get_comic_description(comic_number):
+def get_comic_comment(comic_number):
     url = f"https://xkcd.com/{comic_number}/info.0.json"
     response = requests.get(url)
     response.raise_for_status()
-    return response.json()
+    comic_description = response.json()
+    return comic_description["alt"]
+
+
+def get_comic_url(comic_number):
+    url = f"https://xkcd.com/{comic_number}/info.0.json"
+    response = requests.get(url)
+    response.raise_for_status()
+    comic_description = response.json()
+    return comic_description["alt"]
 
 
 def main():
@@ -34,9 +43,8 @@ def main():
     comics_total_number = get_total_number_comics()
     first_comic = 1
     comic_number = random.randint(first_comic, comics_total_number)
-    comic_description = get_comic_description(comic_number)
-    comic_url = comic_description["img"]
-    comic_comment = comic_description["alt"]
+    comic_comment = get_comic_comment(comic_number)
+    comic_url = get_comic_url(comic_number)
     file_name = take_file_name_from_url(comic_url)
     download_image_in_folder(comic_url, file_name)
     try:
