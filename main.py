@@ -22,6 +22,7 @@ def get_total_number_comics():
 def get_comic_description(comic_number):
     url = f"https://xkcd.com/{comic_number}/info.0.json"
     response = requests.get(url)
+    response.raise_for_status()
     return response.json()
 
 
