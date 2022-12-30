@@ -70,7 +70,6 @@ def post_comic(
     }
     response = requests.post(url, params=params)
     response.raise_for_status()
-    print(response.json())
     catching_error_from_vk_api(response.json())
     return response.json()
 
