@@ -33,7 +33,14 @@ def upload_comic_on_server(
         response = requests.post(url, files=files, params=params)
     response.raise_for_status()
     catching_error_from_vk_api(response.json())
-    return response.json()
+    server_id = response.json()["server"]
+    photo_parameters = response.json()["photo"]
+    photo_hash = response.json()["hash"]
+    return {
+        "server": server_id,
+        "photo": photo_parameters,
+        "hash": photo_hash
+    }
 
 
 def save_comic_in_album(
@@ -52,7 +59,13 @@ def save_comic_in_album(
     response = requests.post(url, params=params)
     response.raise_for_status()
     catching_error_from_vk_api(response.json())
-    return response.json()
+    saved_comic_description = response.json()
+    owner_id = saved_comic_description["response"][0]["owner_id"]
+    media_id = saved_comic_description["response"][0]["id"]
+    return {
+        "owner_id": owner_id,
+        "media_id": media_id
+    }
 
 
 def post_comic(

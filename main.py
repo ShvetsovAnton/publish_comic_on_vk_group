@@ -42,9 +42,8 @@ def main():
             photo_hash,
             vk_api_version
         )
-        saved_comic_owner_id = \
-            saved_comic_description["response"][0]["owner_id"]
-        saved_comic_media_id = saved_comic_description["response"][0]["id"]
+        saved_comic_owner_id = saved_comic_description["owner_id"]
+        saved_comic_media_id = saved_comic_description["media_id"]
         post_comic(
             vk_access_token,
             group_id,
