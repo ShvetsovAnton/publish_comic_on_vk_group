@@ -15,9 +15,9 @@ def main():
     vk_access_token = os.environ["VK_ACCESS_TOKEN"]
     group_id = int(os.environ["VK_GROUP_ID"])
     vk_api_version = 5.131
-    file_name_and_comic_comment = download_random_comic()
-    file_name = file_name_and_comic_comment["file_name"]
-    comic_comment = file_name_and_comic_comment["comic_comment"]
+    comic = download_random_comic()
+    file_name = comic["file_name"]
+    comic_comment = comic["comic_comment"]
     try:
         upload_url = get_server_url(
             vk_access_token,
