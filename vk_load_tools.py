@@ -12,7 +12,7 @@ def get_server_url(vk_api_key, group_id, vk_api_version):
     }
     response = requests.get(url, params=params)
     response.raise_for_status()
-    catching_error_from_vk_api(response.json())
+    catch_error_from_vk_api(response.json())
     return response.json()["response"]["upload_url"]
 
 
@@ -32,7 +32,7 @@ def upload_comic_on_server(
         }
         response = requests.post(url, files=files, params=params)
     response.raise_for_status()
-    catching_error_from_vk_api(response.json())
+    catch_error_from_vk_api(response.json())
     server_id = response.json()["server"]
     photo_parameters = response.json()["photo"]
     photo_hash = response.json()["hash"]
@@ -58,7 +58,7 @@ def save_comic_in_album(
     }
     response = requests.post(url, params=params)
     response.raise_for_status()
-    catching_error_from_vk_api(response.json())
+    catch_error_from_vk_api(response.json())
     saved_comic_description = response.json()
     owner_id = saved_comic_description["response"][0]["owner_id"]
     media_id = saved_comic_description["response"][0]["id"]
@@ -83,11 +83,11 @@ def post_comic(
     }
     response = requests.post(url, params=params)
     response.raise_for_status()
-    catching_error_from_vk_api(response.json())
+    catch_error_from_vk_api(response.json())
     return response.json()
 
 
-def catching_error_from_vk_api(vk_response):
+def catch_error_from_vk_api(vk_response):
     if "error" in vk_response:
         raise VKError(
             f'Error code - {vk_response["error"]["error_code"]}',
